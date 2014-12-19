@@ -6,9 +6,8 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 
 
-ACTIVE = 'A'
 STATUS_CODES = (
-    (ACTIVE, _('Active')),
+    ('A', _('Active')),
     ('P', _('In progress')),
     ('R', _('Resolved')),
     ('C', _('Closed')),
@@ -21,10 +20,9 @@ PRIORITY_CODES = (
 )
 
 # Make into own so can modify TODO
-BUG = 'B'
 TICKET_TYPES = (
-    (BUG, _('Bug')),
     ('T', _('Task')),
+    ('B', _('Bug')),
     ('F', _('Feature')),
     ('E', _('Enhancement')),
     ('I', _('Inquiry')),
@@ -56,7 +54,7 @@ class Project(models.Model):
         ordering = ('id',)
 
     def __unicode__(self):
-        return u'{0}'.format(self.name)
+        return u'{0}'.formt(self.name)
 
     def get_absolute_url(self):
         return reverse('project', kwargs={'pk': self.pk})
@@ -102,12 +100,12 @@ class Ticket(models.Model):
     creation_date = models.DateTimeField(verbose_name=_('Submited date'), auto_now_add=True)
     modified_date = models.DateTimeField(verbose_name=_('Modified date'), auto_now=True)
 
-    opened_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Opened By'), related_name='opened_by')
+    opened_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Submitter'), related_name='submitter')
     assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Assigned to'), null=True, blank=True)
 
-    status = models.CharField(verbose_name=_('Status'), default=ACTIVE, choices=STATUS_CODES, max_length=1)
-    priority = models.IntegerField(verbose_name=_('Priority'), default=3, choices=PRIORITY_CODES)
-    ticket_type = models.CharField(verbose_name=_('Ticket type'), default=BUG, choices=TICKET_TYPES, max_length=1)
+    status = models.IntegerField(verbose_name=_('Status'), default=1, choices=STATUS_CODES)
+    priority = models.IntegerField(verbose_name=_('Priority'), default=2, choices=PRIORITY_CODES)
+    ticket_type = models.IntegerField(verbose_name=_('Ticket type'), default=1, choices=TICKET_TYPES)
     #hours_spent =  ? / complexity
     #dependency = ?
     #attachments = models.ManyToManyField(Attachment, null=True, blank=True)
