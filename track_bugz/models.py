@@ -81,9 +81,11 @@ class Milestone(models.Model):
 
 class Comment(models.Model):
 
-    text = models.TextField(verbose_name=_('Text'), blank=True)
+    text = models.TextField(verbose_name=_('Text'), blank=True)  # Note
     attachment = models.FileField(upload_to='attachments/', help_text='(optional)')
     created_date = models.DateTimeField(verbose_name=_('Created date'), auto_now_add=True)
+    #user (char field), link out to thumbnail image
+
 
     class Meta:
         verbose_name = _('Comment')

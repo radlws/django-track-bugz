@@ -6,5 +6,14 @@
 # DJANGO IMPORTS
 from django.conf import settings
 
-# Admin P
-#ADMIN_P = getattr(settings, "ADMIN_P", 'Default')
+# Settings
+#_P = getattr(settings, "ADMIN_P", 'Default')
+
+
+# Gets the layout style
+#TODO:
+# milestone - phase
+# feature - user stories
+# etc .. WIP
+TRACK_BUGZ_AGILE = getattr(settings, "TRACK_BUGZ_AGILE", False)
+
