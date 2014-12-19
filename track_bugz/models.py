@@ -79,7 +79,7 @@ class Milestone(models.Model):
         return u'%s' % self.name
 
 
-class Comment(models.Model):
+class Comment(models.Model):  # this should be changed, TicketItem ?
 
     text = models.TextField(verbose_name=_('Text'), blank=True)  # Note
     attachment = models.FileField(upload_to='attachments/', help_text='(optional)')
@@ -144,19 +144,3 @@ class Ticket(models.Model):
         return users_ids
 
 
-
-# TODO: later used for tracking changes to a ticket
-# class Log(models.Model):
-#
-#     ticket = models.ForeignKey(Ticket)
-#     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Author'), related_name='author')
-#
-#     description = models.TextField(verbose_name=_('Description'), blank=True)
-#
-#     submitted_date = models.DateTimeField(verbose_name=_('Submited date'), auto_now_add=True)
-#     modified_date = models.DateTimeField(verbose_name=_('Modified date'), auto_now=True)
-#
-#     class Meta:
-#         verbose_name = _('Log')
-#         verbose_name_plural = _('Logs')
-#         ordering = ('id',)
