@@ -15,5 +15,8 @@ from .models import Project, Ticket
 
 # API : TODO
 
+
+# TODO: How to display sub tickets in admin ?
+
 admin.site.register(Project)
 admin.site.register(Ticket)

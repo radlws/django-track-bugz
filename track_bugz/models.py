@@ -111,7 +111,7 @@ class Ticket(models.Model):
     priority = models.IntegerField(verbose_name=_('Priority'), default=3, choices=PRIORITY_CODES)
     ticket_type = models.CharField(verbose_name=_('Ticket type'), default=BUG, choices=TICKET_TYPES, max_length=1)
     #hours_spent =  ? / complexity
-    #dependency = ?
+    #dependency = ?  # To achieve sub_ticket status
     #attachments = models.ManyToManyField(Attachment, null=True, blank=True)
 
     class Meta:

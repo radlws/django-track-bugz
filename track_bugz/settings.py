@@ -13,7 +13,7 @@ from django.conf import settings
 # Gets the layout style
 #TODO:
 # milestone - phase
-# feature - user stories
+# feature - user stories / epics
 # etc .. WIP
 TRACK_BUGZ_AGILE = getattr(settings, "TRACK_BUGZ_AGILE", False)
 
