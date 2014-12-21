@@ -113,6 +113,9 @@ class Ticket(models.Model):
     #hours_spent =  ? / complexity
     #dependency = ?  # To achieve sub_ticket status
     #attachments = models.ManyToManyField(Attachment, null=True, blank=True)
+    
+    
+    # Devise a way to have 1 level of subtickets only.
 
     class Meta:
         verbose_name = _('Ticket')
