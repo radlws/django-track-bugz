@@ -33,7 +33,7 @@ Overall management
 Installation
 ------------
 
-TODO
+TODO, add to pypi
 
 
 
