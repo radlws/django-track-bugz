@@ -39,6 +39,7 @@ TICKET_TYPES = (
 # https://github.com/orges/ITSY/blob/master/project/models.py
 # https://github.com/trojkat/doner/blob/master/doner/project/models.py
 
+
 class Project(models.Model):
 
     name = models.CharField(verbose_name=_('Name'), max_length=50)
@@ -58,8 +59,8 @@ class Project(models.Model):
     def __unicode__(self):
         return u'{0}'.format(self.name)
 
-    def get_absolute_url(self):
-        return reverse('project', kwargs={'pk': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('project', kwargs={'pk': self.pk})
 
 
 class Milestone(models.Model):
@@ -68,15 +69,15 @@ class Milestone(models.Model):
     version_tag = models.CharField(verbose_name=_('Name'), max_length=50)
     #description = models.TextField(verbose_name=_('Description'), blank=True)
     start_date = models.DateTimeField(verbose_name=_('Start Date'))
-    end_date_scheduled = models.DateTimeField(verbose_name=_('Scheduled End Date'))
-    end_date_actual = models.DateTimeField(verbose_name=_('Actual End Date'))
+    end_date_scheduled = models.DateTimeField(verbose_name=_('Scheduled End Date'))  # TODO: no time for these
+    end_date_actual = models.DateTimeField(verbose_name=_('Actual End Date'), blank=True, null=True)
 
     class Meta:
         verbose_name = _('Milestone')
         verbose_name_plural = _('Milestones')
 
     def __unicode__(self):
-        return u'%s' % self.name
+        return u'%s - %s' % (self.project,  self.version_tag)
 
 
 class Comment(models.Model):  # this should be changed, TicketItem ?
@@ -85,7 +86,6 @@ class Comment(models.Model):  # this should be changed, TicketItem ?
     attachment = models.FileField(upload_to='attachments/', help_text='(optional)')
     created_date = models.DateTimeField(verbose_name=_('Created date'), auto_now_add=True)
     #user (char field), link out to thumbnail image
-
 
     class Meta:
         verbose_name = _('Comment')
