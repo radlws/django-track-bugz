@@ -79,12 +79,13 @@ class Milestone(models.Model):
         return u'%s' % self.name
 
 
-class Comment(models.Model):  # this should be changed, TicketItem ?
+class TicketItem(models.Model):  # this should be changed, TicketItem ?
 
     text = models.TextField(verbose_name=_('Text'), blank=True)  # Note
     attachment = models.FileField(upload_to='attachments/', help_text='(optional)')
     created_date = models.DateTimeField(verbose_name=_('Created date'), auto_now_add=True)
     #user (char field), link out to thumbnail image
+    user = models.CharField(verbose_name=_('User'), max_length=255)  # update on save
 
 
     class Meta:
