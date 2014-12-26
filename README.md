@@ -33,7 +33,7 @@ Overall management
 Installation
 ------------
 
-TODO
+TODO, add to pypi
 
 
 
@@ -53,4 +53,6 @@ Description
 
 
     SOME_SETTING = 'Something''
+    SUB_TICKET_LEVEL = 0
+    
 
