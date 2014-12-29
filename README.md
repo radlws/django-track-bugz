@@ -44,10 +44,13 @@ Admin
 * The django admin site will be used as a starting point for the UX
 
 
+
 Settings
 --------
 
 ### TODO
+
+http://www.django-rest-framework.org/
 
 Description
 
