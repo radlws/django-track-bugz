@@ -51,6 +51,7 @@ class Project(models.Model):
     #members_number = models.IntegerField(default=0, editable=False)
     #have_milestones = models.BooleanField(default=False, editable=False)
 
+
     class Meta:
         verbose_name = _('Project')
         verbose_name_plural = _('Projects')
@@ -68,16 +69,18 @@ class Milestone(models.Model):
     project = models.ForeignKey(Project, verbose_name=_('Project'))
     version_tag = models.CharField(verbose_name=_('Name'), max_length=50)
     #description = models.TextField(verbose_name=_('Description'), blank=True)
-    start_date = models.DateTimeField(verbose_name=_('Start Date'))
-    end_date_scheduled = models.DateTimeField(verbose_name=_('Scheduled End Date'))  # TODO: no time for these
-    end_date_actual = models.DateTimeField(verbose_name=_('Actual End Date'), blank=True, null=True)
+    start_date = models.DateField(verbose_name=_('Start Date'), blank=True, null=True)
+    end_date_scheduled = models.DateField(verbose_name=_('Scheduled End Date'), blank=True, null=True)
+    end_date_actual = models.DateField(verbose_name=_('Actual End Date'), blank=True, null=True)
 
     class Meta:
         verbose_name = _('Milestone')
         verbose_name_plural = _('Milestones')
+        ordering = ('-id', )
 
     def __unicode__(self):
-        return u'%s - %s' % (self.project,  self.version_tag)
+        #return u'%s - %s' % (self.project,  self.version_tag)
+        return self.version_tag
 
 
 class TicketItem(models.Model):  # this should be changed, TicketItem ?
@@ -85,12 +88,14 @@ class TicketItem(models.Model):  # this should be changed, TicketItem ?
     text = models.TextField(verbose_name=_('Text'), blank=True)  # Note
     attachment = models.FileField(upload_to='attachments/', help_text='(optional)')
     created_date = models.DateTimeField(verbose_name=_('Created date'), auto_now_add=True)
+    ticket = models.ForeignKey('track_bugz.Ticket', blank=False, null=False)
     #user (char field), link out to thumbnail image
     user = models.CharField(verbose_name=_('User'), max_length=255)  # update on save
 
     class Meta:
-        verbose_name = _('Comment')
-        verbose_name_plural = _('Comments')
+        verbose_name = _('Comment/Attachment')
+        verbose_name_plural = _('Comments/Attachments')
+        ordering = ('-id', )
 
     def __str__(self):
         return self.attachment.name.replace('attachments/', '')
@@ -105,6 +110,7 @@ class Ticket(models.Model):
     creation_date = models.DateTimeField(verbose_name=_('Submited date'), auto_now_add=True)
     modified_date = models.DateTimeField(verbose_name=_('Modified date'), auto_now=True)
 
+    #TODO: Should be CharField ? Or have 2 fields?
     opened_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Opened By'), related_name='opened_by')
     assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Assigned to'), null=True, blank=True)
 
@@ -114,8 +120,7 @@ class Ticket(models.Model):
     #hours_spent =  ? / complexity
     #dependency = ?  # To achieve sub_ticket status
     #attachments = models.ManyToManyField(Attachment, null=True, blank=True)
-    
-    
+
     # Devise a way to have 1 level of subtickets only.
 
     class Meta:
