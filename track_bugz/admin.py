@@ -49,7 +49,7 @@ class TicketAdmin(admin.ModelAdmin):
     list_filter = ('project', 'status', ) # TODO
     exclude = ('priority', )
     inlines = (TicketItemInlineAdmin, )
-    #readonly_fields = ('opened_by', )
+    readonly_fields = ('opened_by', )
     #prepopulated_fields = {"slug": ("name",)}  # TODO: later
 
     actions = ['resolve_tickets', 'close_tickets', 'reopen_tickets', 'set_milestone']
@@ -114,18 +114,14 @@ class TicketAdmin(admin.ModelAdmin):
 
     # def has_add_permission(self, request, obj=None):
     #     return False
-    # def save_model(self, request, obj, form, change):
-    #     #print obj.opened_by, 'done'
-    #     #if not obj.opened_by:
-    #     #print  dir(obj)
-    #     #print obj.opened_by
-    #     print obj.id
-    #     obj.opened_by = request.user
-    #     super(TicketAdmin, self).save_model(request, obj, form, change)
+    def save_model(self, request, obj, form, change):
+        if not obj.id:
+            obj.opened_by = request.user
+        super(TicketAdmin, self).save_model(request, obj, form, change)
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
-            return self.readonly_fields + ('project', 'opened_by', )
+            return self.readonly_fields + ('project', )
         return self.readonly_fields
 
 

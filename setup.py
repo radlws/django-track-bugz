@@ -22,7 +22,7 @@ setup(
     url='htt://github.com/radlws/',
     download_url='',
     include_package_data=True,
-    install_requires=['django >= 1.7', 'djangorestframework == 3.0.2', ],
+    install_requires=['django >= 1.7', ] #, 'djangorestframework == 3.0.2', ],
     platforms='any',
     classifiers=[
         #'Development Status :: 5 - Production/Stable',
